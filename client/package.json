@@ -1,0 +1,61 @@
+{
+  "name": "hik-perimeter-watch-client",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@emailjs/browser": "^3.4.0",
+    "@material-tailwind/react": "^0.3.4",
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@tensorflow-models/coco-ssd": "2.2.2",
+    "@tensorflow/tfjs-backend-cpu": "^3.3.0",
+    "@tensorflow/tfjs-backend-webgl": "^3.3.0",
+    "@tensorflow/tfjs-converter": "^3.3.0",
+    "@tensorflow/tfjs-core": "^3.3.0",
+    "axios": "^0.26.0",
+    "date-fns": "^2.28.0",
+    "dotenv": "^16.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "recharts": "^2.1.8",
+    "rtsp-relay": "^1.6.1",
+    "state-pool": "^0.10.1"
+  },
+  "scripts": {
+    "build:tailwind": "postcss ./src/assets/styles/index.css -o ./src/assets/styles/tailwind.css --env production",
+    "watch:tailwind": "postcss ./src/assets/styles/index.css -o ./src/assets/styles/tailwind.css -w",
+    "start:react": "set PORT=2001 && react-scripts start",
+    "start": "set NODE_OPTIONS=\"--openssl-legacy-provider\" && npm-run-all -p watch:tailwind start:react",
+    "build": "npm run build:tailwind && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "npm:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
+    "yarn:clean": "rm -rf node_modules/ && rm -rf package-lock.json && yarn install && yarn start"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.2.13",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.1.4"
+  }
+}

@@ -1,0 +1,89 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import '@material-tailwind/react/tailwind.css';
+
+body {
+	background: #131417;
+}
+
+body,
+html {
+	min-height: 100vh;
+}
+
+.camera-container canvas {
+    width: 50%;
+    height: auto;
+    float: left;
+    height: 400px;
+    cursor: pointer;
+}
+
+.ar-16\/9 {
+    aspect-ratio: 16/9;
+}
+
+.container-xl,
+.container-md {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+@media (min-width: 1200px) {
+	.container-xl {
+		max-width: 1140px;
+	}
+
+	.container-md {
+		max-width: 960px;
+	}
+}
+
+.container-sm {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+@media (min-width: 576px) {
+	.container-sm {
+		max-width: 540px;
+	}
+}
+
+.grid-2 {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+	grid-auto-rows: 10px;
+}
+
+@media screen and (max-width: 768px) {
+	.grid-2 {
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+		grid-auto-rows: auto;
+	}
+}
+
+.slide2:hover {
+	-webkit-transform: scale(1.05);
+	-ms-transform: scale(1.05);
+	transform: scale(1.05);
+	transition: 0.5s;
+}
+
+.modal-open .slide2:hover {
+	-webkit-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+	transition: 0.5s;
+}
+
+.camera-container {
+    width: 100%;
+}
