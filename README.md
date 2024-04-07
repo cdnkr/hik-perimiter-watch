@@ -40,13 +40,7 @@ cd perimeter-watch
 
 ```bash
 npm install
-```
-
-```bash
 cd client
-```
-
-```bash
 npm install
 ```
 
@@ -56,15 +50,16 @@ npm install
 
 ## Usage
 
-Start the client:
+Start the server:
 
 ```bash
 npm start
 ```
 
-Start the server:
+Open a new terminal and start the client:
 
 ```bash
+cd client
 npm start
 ```
 
