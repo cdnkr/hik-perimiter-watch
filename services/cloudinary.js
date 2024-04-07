@@ -10,7 +10,7 @@ cloudinary.config({
 async function uploadToCloudinary(saveFilePathName, newFileName, res, req) {
     try {
         const date = new Date();
-        const cloudinaryFolderName = `/streetviewai/${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+        const cloudinaryFolderName = `/perimeter-watch/${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
         const fullPath = `${__dirname}${saveFilePathName}/${newFileName}`;
 
         const result = await cloudinary.uploader.upload_large(fullPath, { folder: cloudinaryFolderName, use_filename: true, resource_type: 'video', unique_filename: false });
