@@ -7,18 +7,23 @@ cloudinary.config({
 });
 
 // Upload the captured video to Cloudinary and send notification emails
-async function uploadToCloudinary(saveFilePathName, newFileName, res, req) {
-    try {
-        const date = new Date();
-        const cloudinaryFolderName = `/perimeter-watch/${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-        const fullPath = `${__dirname}${saveFilePathName}/${newFileName}`;
+async function uploadToCloudinary(newFileName) {
+    return new Promise((resolve, reject) => {
+        try {
+            const date = new Date();
+            const cloudinaryFolderName = `/perimeter-watch/${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+    
+            cloudinary.uploader.upload_large(newFileName, {folder: cloudinaryFolderName, use_filename: true, resource_type: 'video', unique_filename: false }, function(error, result) { 
+                if(error) {
+                    return reject(error);
+                }
 
-        const result = await cloudinary.uploader.upload_large(fullPath, { folder: cloudinaryFolderName, use_filename: true, resource_type: 'video', unique_filename: false });
-
-        return result;
-    } catch (err) {
-        return res.send('Failed to upload capture to cloudinary');
-    }
+                return resolve(result.secure_url);
+            });
+        } catch (err) {
+            return reject(err);
+        }
+    })
 }
 
 
