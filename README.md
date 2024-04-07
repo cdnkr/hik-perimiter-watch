@@ -63,7 +63,7 @@ cd client
 npm start
 ```
 
-Open the client application in your browser `http://localhost:2001` to view the live feed and manage detection settings. The server runs at `http://localhost:2001`.
+Open the client application in your browser `http://localhost:2001` to view the live feed and manage detection settings. The server runs at `http://localhost:2000`.
 
 ## Configuration
 
