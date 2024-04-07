@@ -10,7 +10,7 @@ import { loadPlayer } from "rtsp-relay/browser";
 import { captureClasses } from "config";
 import { isTimeInRange } from "../utils/datetime-helpers";
 
-const useObjectDetection = (camera, canvasRef, setFeed, setShow) => {
+const useObjectDetection = (camera, canvasRef, objectBboxRef, setFeed, setShow) => {
     const intervalRef = useRef();
 
     const [model, setModel] = useState(null);
@@ -19,6 +19,7 @@ const useObjectDetection = (camera, canvasRef, setFeed, setShow) => {
         setShow(false);
         
         const loadedModel = await cocoSsd.load();
+
         setModel(loadedModel);
         setFeed(feed => [...feed, { text: "Object detection loaded", color: "green" }]);
 
@@ -39,13 +40,28 @@ const useObjectDetection = (camera, canvasRef, setFeed, setShow) => {
         }
     }, [intervalRef, initialize]);
 
-    const saveCapture = useCallback(async (obj, camera) => {
+    const saveCapture = useCallback(async (obj) => {
         try {
             await axios.post(`http://${process.env.REACT_APP_API_URL}/capture/${camera}`, obj);
         } catch (err) {
             console.log(`Failed to save capture on camera ${camera}`, err)
         }
     }, []);
+
+    function drawRect(bbox) {
+        const canvasWidth = canvasRef.current.clientWidth;
+
+        const adjustmentFactor = parseFloat(canvasWidth) / 1280;
+
+        const adjustedBbox = bbox.map(v => v * adjustmentFactor);
+
+        const [top, right, bottom, left] = adjustedBbox;
+
+        const width = right - left;
+        const height = bottom - top;
+
+        objectBboxRef.current.style = `position: absolute; top: ${top}px; left: ${left}px; width: ${width}px; height: ${height}px; border: 1px solid red;`
+    }
 
     useEffect(() => {
         if (!model || !camera) return;
@@ -78,6 +94,7 @@ const useObjectDetection = (camera, canvasRef, setFeed, setShow) => {
                             (prediction.class === c.name) &&
                             isTimeInRange(c.hours)
                         ) {
+                        drawRect(prediction.bbox);
                         saveCapture({
                             class: prediction.class,
                             probability: prediction.score,

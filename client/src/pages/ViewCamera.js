@@ -9,8 +9,9 @@ export default function ViewCamera() {
     const [feed, setFeed] = useState([]);
 
     const canvasRef = useRef();
+    const objectBboxRef = useRef();
 
-    useObjectDetection(camera, canvasRef, setFeed, setShow);
+    useObjectDetection(camera, canvasRef, objectBboxRef, setFeed, setShow);
 
     return (
         <div className="view-camera w-full flex items-center justify-center">
@@ -21,10 +22,13 @@ export default function ViewCamera() {
                 <div className="w-full grid gap-5 grid-cols-3">
                     <div className="col-span-2">
                         {show ? (
-                            <canvas 
-                                ref={canvasRef}
-                                className="w-full h-auto rounded-xl shadow-xl ar-16/9" 
-                            />
+                            <div className="w-full relative canvas-container">
+                                <canvas 
+                                    ref={canvasRef}
+                                    className="w-full h-auto rounded-xl shadow-xl ar-16/9" 
+                                />
+                                <div ref={objectBboxRef} />
+                            </div>
                         ) : <div className="w-full h-auto rounded-xl shadow-xl ar-16/9 bg-black" />}
                     </div>
                     <div className="col-span-1">
